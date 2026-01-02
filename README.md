@@ -1,13 +1,12 @@
 # ASodium_Go
 
-ASodium_Go is a Go CGO binding for **libsodium**, modeled after my
-production-grade **ASodium (C#)** implementation.
+ASodium_Go is a Go CGO binding for **libsodium**, modeled after my production-grade **ASodium (C#)** implementation.
 
-This Go version is primarily derived from the C# implementation and is
-still undergoing cleanup and maintenance.
+It does refer to some references from [jamesruan](https://github.com/jamesruan/sodium) and [GoKillers](https://github.com/GoKillers/libsodium-go)
 
-My proficiency in Go is currently weaker than in C#, so this binding
-should be approached with care.
+This Go version is primarily derived from the C# implementation and is still undergoing cleanup and maintenance.
+
+My proficiency in Go is currently weaker than in C#, so this binding should be approached with care.
 
 If you encounter bugs or design issues, please feel free to report them.
 
