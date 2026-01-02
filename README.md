@@ -98,6 +98,53 @@ Ensure that:
 
 Exact filenames and locations may vary by distribution.
 
+## Method Choice
+
+This binding exposes **two usage models**, each with different security and operational trade-offs.
+
+### Pointer-Based API (High-Security Use Cases)
+
+If your Go application is **security-focused** and requires stronger memory guarantees (for example, preventing sensitive material from being swapped to disk), you should use the **pointer-based API**, after libsodium has been properly initialized.
+
+This approach allows memory to be allocated via `sodium_malloc` (already comes with `sodium_mlock`), which is required for:
+
+- `sodium_munlock`
+- `sodium_mprotect_noaccess`
+- `sodium_mprotect_readonly`
+- `sodium_mprotect_readwrite`
+
+These mechanisms **cannot be reliably applied** to Go-managed memory (e.g. `[]byte`) and have been verified to **not work correctly with managed memory addresses**.
+
+This model is intended for:
+- key material
+- longer-lived secrets
+- high-risk threat models
+
+It comes with increased complexity and requires careful lifecycle management.
+
+---
+
+### Byte-Based API (General Use Cases)
+
+If your application does **not** require strict memory protection guarantees, you may use the **byte-based API**.
+
+This version operates on Go-managed memory (`[]byte`) and is easier to integrate with standard Go code.
+
+When using this model, you are responsible for deciding whether sensitive data should be explicitly cleared from memory after use.
+
+This model is suitable for:
+- short-lived secrets
+- lower-risk applications
+- simpler integration scenarios
+
+---
+
+### Important Notes
+
+- Pointer-based usage does **not automatically make an application secure**.
+- Byte-based usage is **not inherently unsafe**, but offers fewer memory protection guarantees.
+- Users are expected to choose the model that best fits their threat model and operational requirements.
+
 ## Notes on Safety and Usage
 This binding does not attempt to silently fall back when libsodium is unavailable.
 
