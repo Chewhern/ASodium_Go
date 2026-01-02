@@ -28,7 +28,7 @@ If you encounter bugs or design issues, please feel free to report them.
 
 ## Project Status
 
-- ✅ API modeled after a tested C# implementation
+- ✅ ABI modeled after a tested C# implementation
 - ⚠️ Go binding has **not yet undergone comprehensive Go-level testing**
 - ⚠️ CGO boundary, memory handling, and concurrency behavior are still
   being validated
